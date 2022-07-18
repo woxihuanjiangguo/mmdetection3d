@@ -928,7 +928,7 @@ class DefDetrHead(nn.Module):
             for sample_idx in range(batch_size if self.fuse_img else 0):
                 lidar2img_rt = query_pos_3d.new_tensor(img_metas[sample_idx]['lidar2img'])
                 img_scale_factor = (
-                    query_pos_3d.new_tensor(img_metas[sample_idx]['scale_factor'][:2]
+                    query_pos_3d.new_tensor([img_metas[sample_idx]['scale_factor'][:2]]
                                             if 'scale_factor' in img_metas[sample_idx].keys() else [1.0, 1.0]))
                 img_flip = img_metas[sample_idx]['flip'] if 'flip' in img_metas[sample_idx].keys() else False
                 img_crop_offset = (

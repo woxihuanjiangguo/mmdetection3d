@@ -186,28 +186,26 @@ class MyResize(object):
 
     def _resize_img(self, results):
         """Resize images with ``results['scale']``."""
-        imgs = results['img']
-        results['img'] = [imgs[i] for i in range(len(imgs))]
         for idx in range(len(results['img'])):
             if self.keep_ratio:
                 img, scale_factor = mmcv.imrescale(
-                    results[idx],
+                    results['img'][idx],
                     results['scale'],
                     return_scale=True,
                     backend=self.backend)
                 # the w_scale and h_scale has minor difference
                 # a real fix should be done in the mmcv.imrescale in the future
                 new_h, new_w = img.shape[:2]
-                h, w = results[idx].shape[:2]
+                h, w = results['img'][idx].shape[:2]
                 w_scale = new_w / w
                 h_scale = new_h / h
             else:
                 img, w_scale, h_scale = mmcv.imresize(
-                    results[idx],
+                    results['img'][idx],
                     results['scale'],
                     return_scale=True,
                     backend=self.backend)
-            results[idx] = img
+            results['img'][idx] = img
 
         scale_factor = np.array([w_scale, h_scale, w_scale, h_scale],
                                 dtype=np.float32)

@@ -36,7 +36,7 @@ train_pipeline = [
     dict(type='ObjectRangeFilter', point_cloud_range=point_cloud_range),
     dict(type='ObjectNameFilter', classes=class_names),
     dict(type='PointShuffle'),
-    # dict(type='MyResize', img_scale=img_scale, keep_ratio=True),
+    dict(type='MyResize', img_scale=img_scale, keep_ratio=True),
     dict(type='MyNormalize', **img_norm_cfg),
     dict(type='MyPad', size_divisor=32),
     dict(type='DefaultFormatBundle3D', class_names=class_names),
@@ -67,7 +67,7 @@ test_pipeline = [
                 scale_ratio_range=[1.0, 1.0],
                 translation_std=[0, 0, 0]),
             dict(type='RandomFlip3D'),
-            # dict(type='MyResize', img_scale=img_scale, keep_ratio=True),
+            dict(type='MyResize', img_scale=img_scale, keep_ratio=True),
             dict(type='MyNormalize', **img_norm_cfg),
             dict(type='MyPad', size_divisor=32),
             dict(
