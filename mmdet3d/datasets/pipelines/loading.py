@@ -267,11 +267,13 @@ class MyResize(object):
 
         if 'scale' not in results:
             if 'scale_factor' in results:
-                img_shape = results['img'][0].shape[:2]
-                scale_factor = results['scale_factor']
-                assert isinstance(scale_factor, float)
-                results['scale'] = tuple(
-                    [int(x * scale_factor) for x in img_shape][::-1])
+                assert self.img_scale is not None
+                results['scale'] = self.img_scale[0]
+                # img_shape = results['img'][0].shape[:2]
+                # scale_factor = results['scale_factor']
+                # assert isinstance(scale_factor, float)
+                # results['scale'] = tuple(
+                #     [int(x * scale_factor) for x in img_shape][::-1])
             else:
                 self._random_scale(results)
         else:
